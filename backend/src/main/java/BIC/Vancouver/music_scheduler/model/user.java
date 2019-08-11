@@ -24,6 +24,8 @@ public class user {
 
     private boolean isActive;
 
+    private Integer role;
+
     public Integer getId() {
         return id;
     }
@@ -63,4 +65,8 @@ public class user {
     public String getCity() { return city; }
 
     public void setCity(String city) { this.city = city; }
+
+    public Integer getRole() { return role; }
+
+    public void setRole(Integer role) { this.role = role; }
 }
