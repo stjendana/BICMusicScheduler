@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Welcome from './Components/Welcome'
 import Home from './Components/Home'
-import createBrowserHistory from 'history/createBrowserHistory'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { Route } from 'react-router'
-
+import { createBrowserHistory } from 'history'
+import { Router, Route } from 'react-router-dom'
 import './App.css';
 
 export const history = createBrowserHistory()
@@ -20,7 +18,6 @@ class App extends Component {
         </Router>   
     )
   }
-  
 }
 
 export default App

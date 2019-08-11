@@ -6,9 +6,8 @@ class Welcome extends Component {
     render(){
         return(
         <div>
-            <h1> Welcome to BIC Music Scheduler! </h1>
-            <Button> Login </Button>
-            <Button> Sign Up </Button>
+            <Button color='blue' fluid> Login </Button>
+            <Button color='blue' fluid> Sign Up </Button>
         </div>
         )
     }
