@@ -8,9 +8,7 @@ import BIC.Vancouver.music_scheduler.service.MinistryService;
 import BIC.Vancouver.music_scheduler.service.ScheduleService;
 import BIC.Vancouver.music_scheduler.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RestApiController {
@@ -27,11 +25,17 @@ public class RestApiController {
         return "REST Back end server is initiated!";
     }
 
-    @RequestMapping("/users")
+    @GetMapping("/users")
     public @ResponseBody
     Iterable<user> GetUsers() {
         return this.userService.GetUsers();
     }
+
+    @PostMapping("/user")
+    public void SaveUser(@RequestBody user newUser) { userService.SaveUser(newUser);}
+
+    @PutMapping("/user")
+    public void UpdateUser(@RequestBody user editUser) { userService.UpdateUser(editUser);}
 
     @RequestMapping("/ministries")
     public @ResponseBody
