@@ -1,14 +1,14 @@
 package BIC.Vancouver.music_scheduler.controller;
 
-import BIC.Vancouver.music_scheduler.model.ministry;
-import BIC.Vancouver.music_scheduler.model.schedule;
-import BIC.Vancouver.music_scheduler.model.user;
-import BIC.Vancouver.music_scheduler.model.userMinistry;
+import BIC.Vancouver.music_scheduler.model.*;
+import BIC.Vancouver.music_scheduler.service.MailService;
 import BIC.Vancouver.music_scheduler.service.MinistryService;
 import BIC.Vancouver.music_scheduler.service.ScheduleService;
 import BIC.Vancouver.music_scheduler.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 @RestController
 public class RestApiController {
@@ -19,6 +19,8 @@ public class RestApiController {
     private MinistryService ministryService;
     @Autowired
     private ScheduleService scheduleService;
+    @Autowired
+    private MailService mailService;
 
     @RequestMapping("/")
     public String index() {
@@ -53,5 +55,23 @@ public class RestApiController {
     public @ResponseBody
     Iterable<schedule> GetSchedules() {
         return this.scheduleService.GetSchedules();
+    }
+
+    @RequestMapping("/test")
+    public void TestSendEmail()
+    {
+        mail newMail = new mail();
+        newMail.setFrom("no-reply@bicvancouver.com");
+        newMail.setTo("steven.tjendana@gmail.com");
+        newMail.setSubject("Sending Email Attachment Configuration Example");
+        newMail.setContent("This tutorial demonstrates how to send an email with attachment using Spring Framework.");
+
+        try {
+            mailService.sendSimpleMessage(newMail);
+        }
+        catch ( MessagingException ex) {
+            System.out.println("Error Found: !" + ex.getMessage());
+        }
+
     }
 }
