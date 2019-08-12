@@ -2,6 +2,7 @@ package BIC.Vancouver.music_scheduler.controller;
 
 import BIC.Vancouver.music_scheduler.model.ministry;
 import BIC.Vancouver.music_scheduler.model.user;
+import BIC.Vancouver.music_scheduler.model.userMinistry;
 import BIC.Vancouver.music_scheduler.service.MinistryService;
 import BIC.Vancouver.music_scheduler.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,11 @@ public class RestApiController {
     public @ResponseBody
     Iterable<ministry> GetMinistries() {
         return this.ministryService.GetMinistries();
+    }
+
+    @RequestMapping("/userMinistries")
+    public @ResponseBody
+    Iterable<userMinistry> GetUserMinistries() {
+        return this.ministryService.GetUserMinistries();
     }
 }
