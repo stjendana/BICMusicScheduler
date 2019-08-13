@@ -5,10 +5,13 @@ import BIC.Vancouver.music_scheduler.service.MailService;
 import BIC.Vancouver.music_scheduler.service.MinistryService;
 import BIC.Vancouver.music_scheduler.service.ScheduleService;
 import BIC.Vancouver.music_scheduler.service.UserService;
+import BIC.Vancouver.music_scheduler.util.PdfGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class RestApiController {
@@ -21,6 +24,8 @@ public class RestApiController {
     private ScheduleService scheduleService;
     @Autowired
     private MailService mailService;
+    @Autowired
+    private PdfGeneratorUtil pdfGeneratorUtil;
 
     @RequestMapping("/")
     public String index() {
@@ -70,6 +75,19 @@ public class RestApiController {
             mailService.sendSimpleMessage(newMail);
         }
         catch ( MessagingException ex) {
+            System.out.println("Error Found: !" + ex.getMessage());
+        }
+    }
+
+    @RequestMapping("/testpdf")
+    public void TestGeneratePdf()
+    {
+        Map<String,String> data = new HashMap<String,String>();
+        data.put("name","Tijeeeee");
+
+        try {
+            pdfGeneratorUtil.createPdf("pdfHtmlTemplate",data);
+        }catch (Exception ex) {
             System.out.println("Error Found: !" + ex.getMessage());
         }
 
