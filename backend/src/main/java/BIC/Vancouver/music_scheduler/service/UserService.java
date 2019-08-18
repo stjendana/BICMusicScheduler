@@ -21,4 +21,19 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public void SaveUser(user newUser) {
+        // Do validations here
+
+        userRepository.save(newUser);
+    }
+
+    public void UpdateUser(user editUser) {
+        // Do validations here
+
+        if (userRepository.existsById(editUser.getId())) {
+            userRepository.save(editUser);
+        }
+    }
+
+
 }
