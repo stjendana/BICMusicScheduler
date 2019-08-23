@@ -34,6 +34,7 @@ public class PdfGeneratorUtil {
         FileOutputStream os = null;
         String fileName = "testPdfGenerated";
         try {
+
             final File outputFile = File.createTempFile(fileName, ".pdf");
             os = new FileOutputStream(outputFile);
 
