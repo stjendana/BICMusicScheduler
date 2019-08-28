@@ -1,5 +1,6 @@
 package BIC.Vancouver.music_scheduler.util;
 
+import BIC.Vancouver.music_scheduler.model.schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -18,24 +19,17 @@ public class PdfGeneratorUtil {
 
     @Autowired
     private TemplateEngine templateEngine;
+    private String templateName = "pdfHtmlTemplate";
 
-    public void createPdf(String templateName, Map map) throws Exception {
+    public String CreatePdf(Iterable<schedule> schedules) throws Exception {
         Assert.notNull(templateName, "The templateName can not be null");
         Context ctx = new Context();
-        if (map != null) {
-            Iterator itMap = map.entrySet().iterator();
-            while (itMap.hasNext()) {
-                Map.Entry pair = (Map.Entry) itMap.next();
-                ctx.setVariable(pair.getKey().toString(), pair.getValue());
-            }
-        }
+        ctx.setVariable("schedules", schedules);
 
         String processedHtml = templateEngine.process(templateName, ctx);
         FileOutputStream os = null;
-        String fileName = "testPdfGenerated";
+        final File outputFile = File.createTempFile("testPdfGenerated", ".pdf");
         try {
-
-            final File outputFile = File.createTempFile(fileName, ".pdf");
             os = new FileOutputStream(outputFile);
 
             ITextRenderer renderer = new ITextRenderer();
@@ -52,5 +46,7 @@ public class PdfGeneratorUtil {
                 } catch (IOException e) { /*ignore*/ }
             }
         }
+
+        return outputFile.getName();
     }
 }

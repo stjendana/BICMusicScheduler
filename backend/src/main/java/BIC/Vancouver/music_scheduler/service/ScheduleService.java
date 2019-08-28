@@ -13,4 +13,8 @@ public class ScheduleService {
     private ScheduleRepository scheduleRepository;
 
     public @ResponseBody Iterable<schedule> GetSchedules(){ return scheduleRepository.findAll(); }
+
+    public void SaveSchedule(Iterable<schedule> schedules) {
+        schedules.forEach( s -> scheduleRepository.save(s));
+    }
 }

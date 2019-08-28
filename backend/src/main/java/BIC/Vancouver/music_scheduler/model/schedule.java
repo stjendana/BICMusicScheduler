@@ -9,6 +9,13 @@ import java.util.Date;
 @Entity
 public class schedule {
 
+    public schedule(Integer id, Integer ministryId, Integer userId, Date date) {
+        this.id = id;
+        this.ministryId = ministryId;
+        this.userId = userId;
+        this.date = date;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

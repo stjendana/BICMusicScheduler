@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class RestApiController {
@@ -62,6 +61,31 @@ public class RestApiController {
         return this.scheduleService.GetSchedules();
     }
 
+    @RequestMapping("/testSave")
+    void SaveSchedules()
+    {
+        Date rightNow = new Date();
+        List<schedule> mockSchedules = new ArrayList<schedule>();
+        mockSchedules.add(new schedule(1,1,1, rightNow));
+        mockSchedules.add(new schedule(2,2,2, rightNow));
+        mockSchedules.add(new schedule(3,3,3, rightNow));
+        mockSchedules.add(new schedule(4,4,4, rightNow));
+
+        String pdfTemporaryPath;
+        try {
+            this.scheduleService.SaveSchedule(mockSchedules);
+        } catch ( Exception ex) {
+            System.out.println("Error Found: !" + ex.getMessage());
+        }
+        //
+        try {
+            pdfTemporaryPath = pdfGeneratorUtil.CreatePdf(mockSchedules);
+        }catch (Exception ex) {
+            System.out.println("Error Found: !" + ex.getMessage());
+        }
+
+    }
+
     @RequestMapping("/test")
     public void TestSendEmail()
     {
@@ -79,17 +103,5 @@ public class RestApiController {
         }
     }
 
-    @RequestMapping("/testpdf")
-    public void TestGeneratePdf()
-    {
-        Map<String,String> data = new HashMap<String,String>();
-        data.put("name","Tijeeeee");
 
-        try {
-            pdfGeneratorUtil.createPdf("pdfHtmlTemplate",data);
-        }catch (Exception ex) {
-            System.out.println("Error Found: !" + ex.getMessage());
-        }
-
-    }
 }
