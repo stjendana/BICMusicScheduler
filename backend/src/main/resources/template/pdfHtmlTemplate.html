@@ -1,36 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        .sample {
-            background-image: url('http://www.bicvancouver.com/wp-content/uploads/2018/08/BICV_logo_LetterHead.png');
-            width: 300px;
-            height: 300px;
-        }
-        .sample2 {
-            width: 100px;
-            height: 100px;
-            background: green;
-            border-radius: 5px;
-        }
-        p {
-            color: red;
-        }
-    </style>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="pdfHtml.css">
 </head>
 <body>
 <div class="sample"></div>
-<table style="width:100%">
-    <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Age</th>
-    </tr>
-    <tr th:each="schedule: ${schedules}">
-        <td><span th:text="${schedule.ministryId}"></span></td>
-        <td><span th:text="${schedule.userId}"></span></td>
-        <td><span th:text="${schedule.date}"></span></td>
-    </tr>
+<table>
+    <thead>
+        <tr>
+            <th><span th:text="${schedule.date}"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="schedule: ${schedules}">
+            <td><span th:text="${schedule.ministryId}"></span></td>
+            <td><span th:text="${schedule.userId}"></span></td>
+            <td><span th:text="${schedule.date}"></span></td>
+        </tr>
+    </tbody>
 </table>
 
 
