@@ -37,7 +37,7 @@ class Scheduler extends Component {
         let currentYear = currentDate.getFullYear();
         let year = [];
         for(let i=0; i<5; i++){
-            year.push({key: 1+i, text: `${currentYear+i}`, value: `${currentYear+i}`})
+            year.push({key: 1+i, text: `${currentYear+i}`, value: currentYear+i})
         }
         this.setState({years: year});
     }
@@ -49,25 +49,37 @@ class Scheduler extends Component {
         let month = []
         while(currentMonth < 12){
             let monthName = moment().month(currentMonth).format("MMMM");
-            month.push({key: currentMonth, text: `${monthName}`, value: `${monthName}`});
+            month.push({key: currentMonth, text: `${monthName}`, value: currentMonth});
             currentMonth++;
         }
-        this.setState({months:month})
+        this.setState({months: month})
     }
 
     //Returns a list of sundays
     getSundaysForSelectedMonthYear(selectedMonth, selectedYear){
-        let sundaysOfMonth = [];
-        let sunday = moment().startOf('month').day("Sunday");
-        if (sunday.date() > 7) sunday.add(7,'d');
-        let month = sunday.month();
-        let index = 1
-        while(month === sunday.month()){
-            sundaysOfMonth.push({key: index, date: sunday.format("MMM D").toString()});           
-            sunday.add(7,'d');
-            index++;
+        // Set chosenDate to the 1st of the selectedMonth in selectedYear.
+        let chosenDate = moment().set({
+            'year': this.state.selectedYear,
+            'month': this.state.selectedMonth,
+            'date': 1
+        });
+
+        let sundays = [];
+        for(var i = 1; chosenDate.month() === this.state.selectedMonth; i++) {
+            // If the month doesn't start on Monday, set chosenDate to the first Sunday of the month.
+            if(chosenDate.day() != 0) {
+                chosenDate = chosenDate.day(7);
+            }
+
+            sundays.push({
+                key: i,
+                date: chosenDate.format("MMM D").toString()
+            });
+
+            chosenDate.add(7, 'd');
         }
-        return sundaysOfMonth;
+
+        return sundays;
     }
 
     selectYear = (year, month) => {
@@ -75,7 +87,7 @@ class Scheduler extends Component {
     }
     
     selectMonth = (month) => {
-        this.setState({selectedMonth: month})
+        this.setState({selectedMonth: month});
     }
 
     /*
