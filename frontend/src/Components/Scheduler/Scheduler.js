@@ -43,9 +43,8 @@ class Scheduler extends Component {
     }
 
     //Returns a list of months that remains for the year
-    getRemainingMonthsOfYear(){
-        let currentDate = new Date();
-        let currentMonth = currentDate.getMonth();
+    getRemainingMonthsOfYear(year = moment().year()){
+        let currentMonth = (year != moment().year()) ? 0 : moment().month();
         let month = []
         while(currentMonth < 12){
             let monthName = moment().month(currentMonth).format("MMMM");
@@ -84,6 +83,7 @@ class Scheduler extends Component {
 
     selectYear = (year, month) => {
         this.setState({selectedYear: year});
+        this.getRemainingMonthsOfYear(year);
     }
     
     selectMonth = (month) => {
