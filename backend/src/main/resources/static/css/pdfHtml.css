@@ -6,14 +6,9 @@
     --main-blue: #245E82;
 }
 
-.sample {
-    background-image: url('http://www.bicvancouver.com/wp-content/uploads/2018/08/BICV_logo_LetterHead.png');
-    width: 300px;
-    height: 300px;
-}
-
 body {
     font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    background: red;
 }
 
 h1 {

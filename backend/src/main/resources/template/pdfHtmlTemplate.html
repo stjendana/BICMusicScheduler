@@ -1,23 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="pdfHtml.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'/>
+    <!--<link rel='stylesheet' type='text/css' href="   /static/css/pdfHtml.css" th:href="@{/static/css/pdfHtml.css}"/>-->
+
+    <style>
+body {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+}
+
+h1 {
+    color: #245E82;
+    font-size: 30px;
+    font-weight: 700px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    font-size: 16px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+}
+
+th.invisible {
+    border: none;
+    background: none;
+}
+
+td.user {
+    background-color: #A3BECF;
+}
+
+td, th {
+    background-color: #E2EAEF;
+    border: 1px solid #424C52;
+    color: #051722;
+    font-weight: 400;
+    min-width: 100px;
+    overflow: hidden;
+    padding: 5px 10px;
+}
+
+th, tbody tr td:first-child {
+    background-color: #051722;
+    color: #E2EAEF;
+}
+
+thead tr:first-child th:nth-of-type(2) {
+    border-top-left-radius: 6px;
+}
+
+thead tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+tbody.first-column-field tr:first-child td:first-child {
+    border-top-left-radius: 6px;
+}
+    </style>
+
 </head>
 <body>
-<div class="sample"></div>
 <table>
     <thead>
         <tr>
-            <th><span th:text="${schedule.date}"></span></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="schedule: ${schedules}">
-            <td><span th:text="${schedule.ministryId}"></span></td>
-            <td><span th:text="${schedule.userId}"></span></td>
-            <td><span th:text="${schedule.date}"></span></td>
-        </tr>
+    <div>
+        <h1>August 2019 Schedule</h1>
+        <table>
+            <thead>
+            <tr>
+                <th class="invisible"></th>
+                <th th:each="date: ${schedule.dates}" th:text="${date}"></th>
+            </tr>
+            </thead>
+            <tbody class="first-column-field">
+            <tr>
+                <td>Worship Leader</td>
+                <td th:each="user: ${schedule.worshipLeaders}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="singers: ${schedule.singers}">
+                <td>Singer</td>
+                <td th:each="user: ${singers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Keyboard</td>
+                <td th:each="user: ${schedule.keyboardUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Filler</td>
+                <td th:each="user: ${schedule.fillerUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Drum</td>
+                <td th:each="user: ${schedule.drumUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Bass</td>
+                <td th:each="user: ${schedule.bassUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Guitar</td>
+                <td th:each="user: ${schedule.guitarUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Multimedia</td>
+                <td th:each="user: ${schedule.multimediaUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Sound System</td>
+                <td th:each="user: ${schedule.soundSystemUsers}" th:text="${user.firstName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     </tbody>
 </table>
 

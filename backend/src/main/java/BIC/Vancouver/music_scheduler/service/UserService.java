@@ -35,5 +35,12 @@ public class UserService {
         }
     }
 
+    public user GetUserById(int userId) {
+        if (userRepository.existsById(userId)) {
+            return userRepository.findById(userId).get();
+        }
+        return null;
+    }
+
 
 }
