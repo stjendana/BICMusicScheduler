@@ -5,21 +5,21 @@ import java.util.List;
 
 public class monthSchedule {
     private List<String> dates;
-    private List<user> worshipLeaders;
+    private List<List<user>> worshipLeaders;
     private List<List<user>> singers;
-    private List<user> keyboardUsers;
-    private List<user> fillerUsers;
-    private List<user> drumUsers;
-    private List<user> bassUsers;
-    private List<user> guitarUsers;
-    private List<user> multimediaUsers;
-    private List<user> soundSystemUsers;
+    private List<List<user>> keyboardUsers;
+    private List<List<user>> fillerUsers;
+    private List<List<user>> drumUsers;
+    private List<List<user>> bassUsers;
+    private List<List<user>> guitarUsers;
+    private List<List<user>> multimediaUsers;
+    private List<List<user>> soundSystemUsers;
 
     public List<String> getDates() {
         return dates;
     }
 
-    public List<user> getWorshipLeaders() {
+    public List<List<user>> getWorshipLeaders() {
         return worshipLeaders;
     }
 
@@ -27,31 +27,31 @@ public class monthSchedule {
         return singers;
     }
 
-    public List<user> getKeyboardUsers() {
+    public List<List<user>> getKeyboardUsers() {
         return keyboardUsers;
     }
 
-    public List<user> getFillerUsers() {
+    public List<List<user>> getFillerUsers() {
         return fillerUsers;
     }
 
-    public List<user> getDrumUsers() {
+    public List<List<user>> getDrumUsers() {
         return drumUsers;
     }
 
-    public List<user> getBassUsers() {
+    public List<List<user>> getBassUsers() {
         return bassUsers;
     }
 
-    public List<user> getGuitarUsers() {
+    public List<List<user>> getGuitarUsers() {
         return guitarUsers;
     }
 
-    public List<user> getMultimediaUsers() {
+    public List<List<user>> getMultimediaUsers() {
         return multimediaUsers;
     }
 
-    public List<user> getSoundSystemUsers() {
+    public List<List<user>> getSoundSystemUsers() {
         return soundSystemUsers;
     }
 
@@ -59,7 +59,7 @@ public class monthSchedule {
         this.dates = dates;
     }
 
-    public void setWorshipLeaders(List<user> worshipLeaders) {
+    public void setWorshipLeaders(List<List<user>> worshipLeaders) {
         this.worshipLeaders = worshipLeaders;
     }
 
@@ -67,31 +67,31 @@ public class monthSchedule {
         this.singers = singers;
     }
 
-    public void setKeyboardUsers(List<user> keyboardUsers) {
+    public void setKeyboardUsers(List<List<user>> keyboardUsers) {
         this.keyboardUsers = keyboardUsers;
     }
 
-    public void setFillerUsers(List<user> fillerUsers) {
+    public void setFillerUsers(List<List<user>> fillerUsers) {
         this.fillerUsers = fillerUsers;
     }
 
-    public void setDrumUsers(List<user> drumUsers) {
+    public void setDrumUsers(List<List<user>> drumUsers) {
         this.drumUsers = drumUsers;
     }
 
-    public void setBassUsers(List<user> bassUsers) {
+    public void setBassUsers(List<List<user>> bassUsers) {
         this.bassUsers = bassUsers;
     }
 
-    public void setGuitarUsers(List<user> guitarUsers) {
+    public void setGuitarUsers(List<List<user>> guitarUsers) {
         this.guitarUsers = guitarUsers;
     }
 
-    public void setMultimediaUsers(List<user> multimediaUsers) {
+    public void setMultimediaUsers(List<List<user>> multimediaUsers) {
         this.multimediaUsers = multimediaUsers;
     }
 
-    public void setSoundSystemUsers(List<user> soundSystemUsers) {
+    public void setSoundSystemUsers(List<List<user>> soundSystemUsers) {
         this.soundSystemUsers = soundSystemUsers;
     }
 }

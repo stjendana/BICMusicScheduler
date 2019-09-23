@@ -100,41 +100,41 @@ tbody.first-column-field tr:first-child td:first-child {
             </tr>
             </thead>
             <tbody class="first-column-field">
-            <tr>
+            <tr th:each="wls: ${schedule.worshipLeaders}">
                 <td>Worship Leader</td>
-                <td th:each="user: ${schedule.worshipLeaders}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${wls}" th:text="${user.firstName}"></td>
             </tr>
             <tr th:each="singers: ${schedule.singers}">
                 <td>Singer</td>
                 <td th:each="user: ${singers}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="keys: ${schedule.keyboardUsers}">
                 <td>Keyboard</td>
-                <td th:each="user: ${schedule.keyboardUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${keys}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="fills: ${schedule.fillerUsers}">
                 <td>Filler</td>
-                <td th:each="user: ${schedule.fillerUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${fills}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="drums: ${schedule.drumUsers}">
                 <td>Drum</td>
-                <td th:each="user: ${schedule.drumUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${drums}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="basses: ${schedule.bassUsers}">
                 <td>Bass</td>
-                <td th:each="user: ${schedule.bassUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${basses}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="guitars: ${schedule.guitarUsers}">
                 <td>Guitar</td>
-                <td th:each="user: ${schedule.guitarUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${guitars}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="multis: ${schedule.multimediaUsers}">
                 <td>Multimedia</td>
-                <td th:each="user: ${schedule.multimediaUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${multis}" th:text="${user.firstName}"></td>
             </tr>
-            <tr>
+            <tr th:each="ss: ${schedule.soundSystemUsers}">
                 <td>Sound System</td>
-                <td th:each="user: ${schedule.soundSystemUsers}" th:text="${user.firstName}"></td>
+                <td th:each="user: ${ss}" th:text="${user.firstName}"></td>
             </tr>
             </tbody>
         </table>

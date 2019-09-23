@@ -40,26 +40,41 @@ public class PdfGeneratorUtil {
         // Process Data
         List<Date> distinctDates = lst.stream().map(schedule::getDate).distinct().collect(Collectors.toList());
         ms.setDates(lst.stream().map(schedule::getDate).map(dt -> formatDate(dt) ).distinct().collect(Collectors.toList()));
-        ms.setWorshipLeaders(this.RetrieveUsersByMinistryId(lst, 1));
-        ms.setKeyboardUsers(this.RetrieveUsersByMinistryId(lst, 3));
-        ms.setFillerUsers(this.RetrieveUsersByMinistryId(lst, 4));
-        ms.setDrumUsers(this.RetrieveUsersByMinistryId(lst, 5));
-        ms.setBassUsers(this.RetrieveUsersByMinistryId(lst, 6));
-        ms.setGuitarUsers(this.RetrieveUsersByMinistryId(lst, 7));
-        ms.setMultimediaUsers(this.RetrieveUsersByMinistryId(lst, 8));
-        ms.setSoundSystemUsers(this.RetrieveUsersByMinistryId(lst, 9));
+        ms.setWorshipLeaders(this.GetTableDataPerRole(lst, distinctDates, 1));
+        ms.setSingers(this.GetTableDataPerRole(lst, distinctDates, 2));
+        ms.setKeyboardUsers(this.GetTableDataPerRole(lst, distinctDates, 3));
+        ms.setFillerUsers(this.GetTableDataPerRole(lst, distinctDates, 4));
+        ms.setDrumUsers(this.GetTableDataPerRole(lst, distinctDates, 5));
+        ms.setBassUsers(this.GetTableDataPerRole(lst, distinctDates, 6));
+        ms.setGuitarUsers(this.GetTableDataPerRole(lst, distinctDates, 7));
+        ms.setMultimediaUsers(this.GetTableDataPerRole(lst, distinctDates, 8));
+        ms.setSoundSystemUsers(this.GetTableDataPerRole(lst, distinctDates, 9));
 
-        List<List<user>> singers = distinctDates.stream().map(date -> GetRoleForThisWeek( lst, date, 2)).collect(Collectors.toList());
-        int max = singers.stream().mapToInt(List::size).filter(q -> q >= 0).max().orElse(0);
+        return ms;
+    }
+
+    private List<List<user>> GetUsersPerWeek(List<schedule> schedules, List<Date> distinctDates, int ministryId)
+    {
+        return distinctDates.stream().map(date -> GetRoleForThisWeek( schedules, date, ministryId)).collect(Collectors.toList());
+    }
+
+    private List<List<user>> TranslateToTableData(List<List<user>> role)
+    {
+        int max = role.stream().mapToInt(List::size).filter(q -> q >= 0).max().orElse(0);
         List<List<user>> processed = new ArrayList<>();
         for(int i = 0; i<max; i++) {
             int finalI = i;
-            List<user> bar = singers.stream().map(a -> a.get(finalI)).collect(Collectors.toList());
-            processed.add(bar);
+            List<user> x = role.stream().map(a -> a.get(finalI)).collect(Collectors.toList());
+            processed.add(x);
         }
+        return processed;
+    }
 
-        ms.setSingers(processed);
-        return ms;
+    private List<List<user>> GetTableDataPerRole(List<schedule> schedules, List<Date> distinctDates, int ministryId)
+    {
+        // Get users per week
+        List<List<user>> usersPerWeek = GetUsersPerWeek(schedules, distinctDates, ministryId);
+        return TranslateToTableData(usersPerWeek);
     }
 
     private List<user> GetRoleForThisWeek(List<schedule> lst, Date dt, int ministryId)
@@ -73,16 +88,8 @@ public class PdfGeneratorUtil {
 
     private String formatDate(Date dt)
     {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd yyyy");
         return formatter.format(dt);
-    }
-
-    private List<user> RetrieveUsersByMinistryId(List<schedule> lst, int ministryId)
-    {
-        return lst.stream()
-                  .filter(x -> x.getMinistryId() == ministryId)
-                  .map(x -> getUser(x.getUserId()))
-                  .collect(Collectors.toList());
     }
 
     private user getUser(int userId)
