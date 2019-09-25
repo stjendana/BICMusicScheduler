@@ -34,14 +34,15 @@ public class MailService {
                 "steven.tjendana@gmail.com",
                 "melisadewi577@yahoo.co.id",
                 "ismantara.kevin@yahoo.com",
-                "utomo.agnescarissa@gmail.com"
+                "utomo.agnescarissa@gmail.com",
+                "ijonkyonathan@gmail.com"
         };
 
         mail newMail = new mail();
         newMail.setFrom("no-reply@bicvancouver.com");
         newMail.setTo(emailAddresses);
         newMail.setSubject("Sending Email Attachment Configuration Example");
-        newMail.setContent("This tutorial demonstrates how to send an email with attachment using Spring Framework.");
+        newMail.setContent("This tutorial demonstrates how to send an email with attachment using Spring Framework. <br /> Second line");
 
         return newMail;
     }
