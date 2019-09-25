@@ -97,7 +97,7 @@ public class PdfGeneratorUtil {
         return this.userService.GetUserById(userId);
     }
 
-    public String CreatePdf(Iterable<schedule> schedules) throws Exception {
+    public File CreatePdf(Iterable<schedule> schedules) throws Exception {
         Assert.notNull(templateName, "The templateName can not be null");
         Context ctx = new Context();
         ctx.setVariable("schedule", process(schedules));
@@ -124,6 +124,6 @@ public class PdfGeneratorUtil {
             }
         }
 
-        return outputFile.getName();
+        return outputFile;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -66,23 +67,20 @@ public class RestApiController {
     @RequestMapping("/testSave")
     void SaveSchedules()
     {
-
         List<schedule> mockSchedules = createMockSchedule();
 
-
-        String pdfTemporaryPath;
         try {
             //this.scheduleService.SaveSchedule(mockSchedules);
         } catch ( Exception ex) {
             System.out.println("Error Found: !" + ex.getMessage());
         }
-        //
+
         try {
-            pdfTemporaryPath = pdfGeneratorUtil.CreatePdf(mockSchedules);
+            File temporaryFile = pdfGeneratorUtil.CreatePdf(mockSchedules);
+            mailService.sendSimpleMessage(temporaryFile);
         }catch (Exception ex) {
             System.out.println("Error Found: !" + ex.getMessage());
         }
-
     }
 
     private List<schedule> createMockSchedule()
@@ -159,23 +157,4 @@ public class RestApiController {
 
         return mockSchedules;
     }
-
-    @RequestMapping("/test")
-    public void TestSendEmail()
-    {
-        mail newMail = new mail();
-        newMail.setFrom("no-reply@bicvancouver.com");
-        newMail.setTo("steven.tjendana@gmail.com");
-        newMail.setSubject("Sending Email Attachment Configuration Example");
-        newMail.setContent("This tutorial demonstrates how to send an email with attachment using Spring Framework.");
-
-        try {
-            mailService.sendSimpleMessage(newMail);
-        }
-        catch ( MessagingException ex) {
-            System.out.println("Error Found: !" + ex.getMessage());
-        }
-    }
-
-
 }

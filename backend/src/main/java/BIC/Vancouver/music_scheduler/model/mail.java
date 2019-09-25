@@ -2,13 +2,13 @@ package BIC.Vancouver.music_scheduler.model;
 
 public class mail {
     private String from;
-    private String to;
+    private String[] to;
     private String subject;
     private String content;
 
     public mail() {}
 
-    public mail(String from, String to, String subject, String content) {
+    public mail(String from, String[] to, String subject, String content) {
         this.from = from;
         this.to = to;
         this.subject = subject;
@@ -23,11 +23,11 @@ public class mail {
         this.from = from;
     }
 
-    public String getTo() {
+    public String[] getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(String[] to) {
         this.to = to;
     }
 
