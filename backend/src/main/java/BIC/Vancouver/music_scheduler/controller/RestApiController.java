@@ -34,6 +34,11 @@ public class RestApiController {
         return "REST Back end server is initiated!";
     }
 
+    @RequestMapping("/hello")
+    public String Hello() {
+        return "Hello World";
+    }
+
     @GetMapping("/users")
     public @ResponseBody
     Iterable<user> GetUsers() {

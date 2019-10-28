@@ -7,6 +7,7 @@ import BIC.Vancouver.music_scheduler.repository.MinistryRepository;
 import BIC.Vancouver.music_scheduler.repository.UserMinistryRepository;
 import BIC.Vancouver.music_scheduler.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,6 +41,10 @@ public class UserService {
             return userRepository.findById(userId).get();
         }
         return null;
+    }
+
+    public user FindUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
 
