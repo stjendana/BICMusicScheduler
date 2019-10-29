@@ -13,9 +13,8 @@ class Login extends Component {
     }
 
     AuthenticateUser = (event) => {
-        event.preventDefault()       
-       console.log(JSON.stringify(this.state))
-
+       event.preventDefault()       
+       
        fetch('http://localhost:8080/authenticate', {
             method: 'POST',
             body: JSON.stringify(this.state),
