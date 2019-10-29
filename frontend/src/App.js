@@ -6,34 +6,19 @@ import Login from './Components/Login'
 import { createBrowserHistory } from 'history'
 import { Router, Route } from 'react-router-dom'
 import './App.css';
+import PrivateRoute from './PrivateRoute';
 
 export const history = createBrowserHistory()
 
 class App extends Component {
-  render(){
-
-    fetch('http://localhost:8080/isTokenExpired/' + localStorage.getItem('m3-auth-token'), {
-            method: 'GET',            
-            headers: {
-                'Content-Type': 'application/json'
-              }
-        }).then((response) => response.text())
-        .then((responseObj) => {
-          if(responseObj === 'true') {
-            
-          } else {
-            // Token is not expired
-          }
-      
-        })
-
+  render() {
     return (
         <Router history={history}>
             <div>
-                <Route exact path='/' component={Authenticate} />
-                <Route exact path='/home' component={Home} />
+                <Route exact path='/' component={Authenticate} />                
                 <Route exact path='/login' component={Login} />
-                <Route exact path='/scheduler' component={Scheduler} />
+                <PrivateRoute exact path='/home' component={Home} />
+                <PrivateRoute exact path='/scheduler' component={Scheduler} />
             </div>    
         </Router>   
     )
