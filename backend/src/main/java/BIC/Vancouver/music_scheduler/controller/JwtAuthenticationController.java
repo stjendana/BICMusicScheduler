@@ -14,11 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -46,6 +42,12 @@ public class JwtAuthenticationController {
         userDetailsService.save(user);
         return ResponseEntity.ok("User Saved");
     }
+
+    @RequestMapping(value = "/isTokenExpired/{token}", method = RequestMethod.GET)
+    public ResponseEntity<?> CheckIfUserTokenValid(@PathVariable("token") String token) throws Exception {
+        return ResponseEntity.ok(jwtTokenUtil.isTokenExpired(token));
+    }
+
 
     private void authenticate(String username, String password) throws Exception {
         try {

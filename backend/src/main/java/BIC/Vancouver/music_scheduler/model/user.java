@@ -16,8 +16,6 @@ public class user {
 
     private String lastName;
 
-    private String email;
-
     private String username;
 
     private String password;
@@ -59,10 +57,6 @@ public class user {
     public boolean getIsActive() { return isActive; }
 
     public void setIsActive(boolean isActive) { this.isActive = isActive; }
-
-    public String getEmail() { return email; }
-
-    public void setEmail(String email) { this.email = email; }
 
     public String getCity() { return city; }
 

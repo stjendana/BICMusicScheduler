@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import BIC.Vancouver.music_scheduler.dao.UserDao;
 import BIC.Vancouver.music_scheduler.model.user;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,16 +30,18 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 new ArrayList<>());
     }
 
     public void save(user user) {
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
         user newUser = new user();
-        newUser.setEmail(user.getUsername());
+        newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setCity(user.getCity());
+        newUser.setRole(0);
         userDao.save(newUser);
     }
 
