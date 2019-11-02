@@ -5,7 +5,7 @@ import "semantic-ui-css/semantic.min.css";
 
 class Authenticate extends Component {
     onClick = () =>{
-        history.push('/home')
+        history.push('/login')
     }
     render(){
         return(

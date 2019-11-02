@@ -1,0 +1,83 @@
+:root {
+    --base-blue: #E2EAEF;
+    --border-color: #424C52;
+    --dark-blue: #051722;
+    --highlight-blue: #A3BECF;
+    --main-blue: #245E82;
+}
+
+body {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    background: red;
+}
+
+h1 {
+    color: var(--main-blue);
+    font-size: 30px;
+    font-weight: 700px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    font-size: 16px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+}
+
+th.invisible {
+    border: none;
+    background: none;
+}
+
+td.user {
+    background-color: var(--highlight-blue);
+}
+
+td, th {
+    background-color: var(--base-blue);
+    border: 1px solid var(--border-color);
+    color: var(--dark-blue);
+    font-weight: 400;
+    min-width: 100px;
+    overflow: hidden;
+    padding: 5px 10px;
+}
+
+th, tbody tr td:first-child {
+    background-color: var(--dark-blue);
+    color: var(--base-blue);
+}
+
+thead tr:first-child th:nth-of-type(2) {
+    border-top-left-radius: 6px;
+}
+
+thead tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+tbody.first-column-field tr:first-child td:first-child {
+    border-top-left-radius: 6px;
+}
