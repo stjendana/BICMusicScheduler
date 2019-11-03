@@ -2,51 +2,70 @@ import React, { Component } from 'react';
 import { Button, Form, Segment, Grid, Header } from 'semantic-ui-react';
 import { history } from '../App'
 import "semantic-ui-css/semantic.min.css";
+import { Message } from 'semantic-ui-react'
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loginError: false
         };    
-    }
+    } 
 
     AuthenticateUser = (event) => {
-       event.preventDefault()       
-       fetch('http://localhost:8080/authenticate', {
+      event.preventDefault()  
+      async function Authenticate(state) {
+        let response = await fetch('http://localhost:8080/authenticate', {
             method: 'POST',
-            body: JSON.stringify(this.state),
+            body: JSON.stringify(state),
             headers: {
                 'Content-Type': 'application/json'
               }
-        }).then((response) => response.text())
-        .then((responseObj) => {
-          this.token = JSON.parse(responseObj).token
-          localStorage.setItem('m3-auth-token', this.token)
-          history.push('/home')
         })
+        let responseOk = response && response.ok;
+        if (responseOk) {
+          let data = await response.text();
+          return data;
+        } else {
+          return null;
+        }
+      }
+      Authenticate(this.state).then(res => {
+        if (res) {
+          localStorage.setItem('m3-auth-token', JSON.parse(res).token)
+          history.push('/home')
+        } else {
+          this.setState({loginError: true})
+        } 
+      });
+    }   
+
+    RegisterUser = () =>{
+        history.push('/register')
     }
 
-
     onUserNameChange = (event) => {
-        this.state.username = event.target.value;
+      this.setState({loginError: false, username: event.target.value})
     }
 
     onPasswordChange = (event) => {
-        this.state.password = event.target.value;
-    }
-    
+      this.setState({loginError: false, password: event.target.value})
+    }    
 
     render(){
         return(
-          <div className='login-form'>
+          <div className='login-form' style={{ backgroundImage: `url(${"/homepage_background.jpg"})`, backgroundSize: 'cover'}}>
             <style>
               {`
               body > div,
               body > div > div,
               body > div > div > div.login-form {
                 height: 100%;
+              }
+              .ui.button.login-button {
+                margin-bottom: 10px;
               }
             `}
             </style>
@@ -55,18 +74,21 @@ class Login extends Component {
               style={{height: '100%'}}
               verticalAlign='middle'
             >
-              <Grid.Column style={{maxWidth: 450}}>
+              <Grid.Column style={{maxWidth: 450, background: 'white'}}>
                 <Header as='h2' color='blue' textAlign='center'>
-                  Log-in to your account
+                  Log In to your account
                 </Header>
-                <Form size='large'>
+                <Form size='large' error={this.state.loginError}>
                   <Segment stacked>
+
+                    {this.state.loginError ? <Message error header="Login Error" content="The email or password provided is incorrect. Please try again" /> : null}
+
                     <Form.Input
                       required
                       fluid
                       icon='user'
                       iconPosition='left'
-                      placeholder='username'
+                      placeholder='Username'
                       onChange = {this.onUserNameChange}
                     />
                     <Form.Input
@@ -78,7 +100,8 @@ class Login extends Component {
                       type='password'
                       onChange = {this.onPasswordChange}
                     />
-                    <Button color='blue' fluid size='large' onClick={this.AuthenticateUser}> Login </Button>
+                    <Button className='login-button' color='blue' fluid size='large' onClick={this.AuthenticateUser}> Login </Button>
+                    <Button color='teal' fluid size='large' onClick={this.RegisterUser}> Sign Up </Button>
                   </Segment>
                 </Form>
               </Grid.Column>
