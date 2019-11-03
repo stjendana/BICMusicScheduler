@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Form, Segment, Grid, Header } from 'semantic-ui-react';
 import { history } from '../App'
 import "semantic-ui-css/semantic.min.css";
 
@@ -14,7 +14,6 @@ class Login extends Component {
 
     AuthenticateUser = (event) => {
        event.preventDefault()       
-       
        fetch('http://localhost:8080/authenticate', {
             method: 'POST',
             body: JSON.stringify(this.state),
@@ -27,7 +26,6 @@ class Login extends Component {
           localStorage.setItem('m3-auth-token', this.token)
           history.push('/home')
         })
-
     }
 
 
@@ -42,15 +40,50 @@ class Login extends Component {
 
     render(){
         return(
-        <form onSubmit={this.AuthenticateUser}>
-            <label>Email:
-                <input type="text" onChange={this.onUserNameChange} />
-            </label>
-            <label>Password:
-                <input type="password" onChange={this.onPasswordChange} />
-            </label>
-            <input type="submit" value="Login" />
-        </form>  
+          <div className='login-form'>
+            <style>
+              {`
+              body > div,
+              body > div > div,
+              body > div > div > div.login-form {
+                height: 100%;
+              }
+            `}
+            </style>
+            <Grid
+              textAlign='center'
+              style={{height: '100%'}}
+              verticalAlign='middle'
+            >
+              <Grid.Column style={{maxWidth: 450}}>
+                <Header as='h2' color='blue' textAlign='center'>
+                  Log-in to your account
+                </Header>
+                <Form size='large'>
+                  <Segment stacked>
+                    <Form.Input
+                      required
+                      fluid
+                      icon='user'
+                      iconPosition='left'
+                      placeholder='username'
+                      onChange = {this.onUserNameChange}
+                    />
+                    <Form.Input
+                      required
+                      fluid
+                      icon='lock'
+                      iconPosition='left'
+                      placeholder='Password'
+                      type='password'
+                      onChange = {this.onPasswordChange}
+                    />
+                    <Button color='blue' fluid size='large' onClick={this.AuthenticateUser}> Login </Button>
+                  </Segment>
+                </Form>
+              </Grid.Column>
+            </Grid>
+          </div>
         )
     }
 }
