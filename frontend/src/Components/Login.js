@@ -15,7 +15,6 @@ class Login extends Component {
     } 
 
     AuthenticateUser = (event) => {
-      event.preventDefault()  
       async function Authenticate(state) {
         let response = await fetch('http://localhost:8080/authenticate', {
             method: 'POST',
