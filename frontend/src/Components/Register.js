@@ -73,7 +73,7 @@ class Register extends Component {
               style={{height: '100%'}}
               verticalAlign='middle'
             >
-              <Grid.Column style={{maxWidth: 450, background: 'white'}}>
+              <Grid.Column style={{maxWidth: 450, background: 'white', borderRadius: '5px'}}>
                 <Header as='h2' color='blue' textAlign='center'>
                   Sign Up
                 </Header>
