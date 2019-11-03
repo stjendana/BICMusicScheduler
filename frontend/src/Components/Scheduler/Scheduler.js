@@ -44,7 +44,7 @@ class Scheduler extends Component {
 
     //Returns a list of months that remains for the year
     getRemainingMonthsOfYear(year = moment().year()){
-        let currentMonth = (year != moment().year()) ? 0 : moment().month();
+        let currentMonth = (year !== moment().year()) ? 0 : moment().month();
         let month = []
         while(currentMonth < 12){
             let monthName = moment().month(currentMonth).format("MMMM");
@@ -66,7 +66,7 @@ class Scheduler extends Component {
         let sundays = [];
         for(var i = 1; chosenDate.month() === this.state.selectedMonth; i++) {
             // If the month doesn't start on Monday, set chosenDate to the first Sunday of the month.
-            if(chosenDate.day() != 0) {
+            if(chosenDate.day() !== 0) {
                 chosenDate = chosenDate.day(7);
             }
 

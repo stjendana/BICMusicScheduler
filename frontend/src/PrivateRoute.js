@@ -1,6 +1,5 @@
-import { createBrowserHistory } from 'history'
-import { Router, Route } from 'react-router-dom'
-import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
+import React from 'react';
 import { Redirect } from 'react-router';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

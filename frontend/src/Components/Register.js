@@ -22,23 +22,23 @@ class Register extends Component {
     ]
 
     onFirstNameChange = (event) => {
-        this.state.firstName = event.target.value;
+      this.setState({firstName: event.target.value})
     }
 
     onLastNameChange = (event) => {
-        this.state.lastName = event.target.value;
+      this.setState({lastName: event.target.value})
     }
 
     onUserNameChange = (event) => {
-        this.state.username = event.target.value;
+      this.setState({username: event.target.value})
     }
 
-    onCityChange = (event, {value}) => {
-        this.state.city = value;
+    onCityChange = (event, { value }) => {
+      this.setState({city: value})
     }
 
     onPasswordChange = (event) => {
-        this.state.password = event.target.value;
+      this.setState({password: event.target.value})
     }
 
     Submit = () => {
