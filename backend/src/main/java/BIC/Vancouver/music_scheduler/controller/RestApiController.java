@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @RestController
+@CrossOrigin
 public class RestApiController {
 
     @Autowired
@@ -34,11 +35,7 @@ public class RestApiController {
         return "REST Back end server is initiated!";
     }
 
-    @RequestMapping("/hello")
-    public String Hello() {
-        return "Hello World";
-    }
-
+    @CrossOrigin()
     @GetMapping("/users")
     public @ResponseBody
     Iterable<user> GetUsers() {
@@ -50,6 +47,7 @@ public class RestApiController {
 
     @PutMapping("/user")
     public void UpdateUser(@RequestBody user editUser) { userService.UpdateUser(editUser);}
+
 
     @RequestMapping("/ministries")
     public @ResponseBody

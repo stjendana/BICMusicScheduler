@@ -13,8 +13,43 @@ const SendButton = () => {
 }
 
 class Scheduler extends Component {
+    constructor(props) {
+        super(props)
+
+        fetch('http://localhost:8080/ministries', {method: 'GET'}).then(res => res.json()).then(res => this.setState({listOfRoles: res.map(o => o.name)}))
+
+        async function Call() {
+         
+            let response = await fetch('http://localhost:8080/users', {
+                method: 'GET',
+                withCredentials: true,        
+                //mode: "no-cors",
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('m3-auth-token'),
+                    'Access-Control-Allow-Origin': '*',
+                })                 
+            })
+            
+            let responseOk = response && response.ok;
+            if (responseOk) {
+              let data = await response.text();
+              return data;
+            } else {
+              return null;
+            }
+          }
+          Call().then(res => {
+            if (res) {
+              console.log(res)
+            } else {
+             
+            } 
+          });
+    }
     state = {
-        listOfRoles: ['WL', 'Singer', 'Keyboard', 'Filler', 'MultiMedia', 'Soundman'],
+        //listOfRoles: ['WL', 'Singer', 'Keyboard', 'Filler', 'MultiMedia', 'Soundman'],
+        listOfRoles: [],
         listOfPeople: [
             {key: "1", name : "kevin ismantara", role: "soundman"},
             {key: "2", name : "steven tjendana", role: "singer"},

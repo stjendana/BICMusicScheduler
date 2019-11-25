@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import BIC.Vancouver.music_scheduler.dao.UserDao;
 import BIC.Vancouver.music_scheduler.model.user;
+import BIC.Vancouver.music_scheduler.model.userMinistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,7 +43,9 @@ public class JwtUserDetailsService implements UserDetailsService {
         newUser.setLastName(user.getLastName());
         newUser.setCity(user.getCity());
         newUser.setRole(0);
+        newUser.setMinistry(user.getMinistry());
         userDao.save(newUser);
+
     }
 
 }

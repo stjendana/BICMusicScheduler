@@ -11,9 +11,32 @@ class Register extends Component {
             lastName: '',
             username: '',
             password: '',
-            city: ''
-        };
+            city: '',
+            ministry: '',
+            ministryOptions: []
+        };        
+
+        async function Call() {
+          let response = await fetch('http://localhost:8080/ministries', {method: 'GET'})
+          let responseOk = response && response.ok;
+          if (responseOk) {
+            let data = await response.text();
+            return data;
+          } else {
+            return null;
+          }
+        }
+        Call().then(res => {
+          if (res) {
+            this.setState({ministryOptions: JSON.parse(res).map(obj => ({
+              'key': obj.name,
+              'text': obj.name,
+              'value': obj.id
+            }))})
+          } 
+        });
     }
+
 
     options = [
         { key: 'Vancouver', text: 'Vancouver', value: 'Vancouver' },
@@ -37,8 +60,17 @@ class Register extends Component {
       this.setState({city: value})
     }
 
+    onMinistryChange = (event, { value }) => {
+      this.setState({ministry: value.join(',')})
+    }
+
     onPasswordChange = (event) => {
       this.setState({password: event.target.value})
+    
+    }
+
+    handleSubmit = () => {
+      this.props.onChange(this.state)
     }
 
     Submit = () => {
@@ -114,11 +146,18 @@ class Register extends Component {
                     />
                     <Form.Select
                         required
-                        fluid
-           
+                        fluid           
                         options={this.options}
                         placeholder='City'
                         onChange={this.onCityChange}
+                    />
+                    <Form.Select 
+                        required
+                        fluid           
+                        multiple
+                        options={this.state.ministryOptions}
+                        placeholder='Ministry'
+                        onChange={this.onMinistryChange}
                     />
                     <Button type='submit' color='blue' fluid size='large' onClick={this.Submit}> Sign Up </Button>
                   </Segment>

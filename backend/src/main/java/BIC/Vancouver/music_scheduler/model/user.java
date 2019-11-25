@@ -1,5 +1,8 @@
 package BIC.Vancouver.music_scheduler.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +29,8 @@ public class user {
 
     private Integer role;
 
+    private String ministry;
+
     public Integer getId() {
         return id;
     }
@@ -46,10 +51,12 @@ public class user {
 
     public void setLastName(String lastName) { this.lastName = lastName; }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -69,4 +76,8 @@ public class user {
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username; }
+
+    public String getMinistry() { return ministry; }
+
+    public void setMinistry(String ministry) { this.ministry = ministry; }
 }
