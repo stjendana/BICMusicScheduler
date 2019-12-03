@@ -5,14 +5,18 @@ import Login from './Components/Login'
 import Register from './Components/Register'
 import { createBrowserHistory } from 'history'
 import { Router, Route } from 'react-router-dom'
-import './App.css';
+import { Provider } from 'react-redux'
 import PrivateRoute from './PrivateRoute';
+import createStore from './store'
+import './App.css';
 
+const store = createStore()
 export const history = createBrowserHistory()
 
 class App extends Component {
   render() {
     return (
+      <Provider store = {store}>
         <Router history={history}>
             <div>
                 <Route exact path='/' component={Login} />                
@@ -21,7 +25,8 @@ class App extends Component {
                 <PrivateRoute exact path='/home' component={Home} />
                 <PrivateRoute exact path='/scheduler' component={Scheduler} />
             </div>    
-        </Router>   
+        </Router>
+      </Provider>   
     )
   }
 }
