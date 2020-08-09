@@ -67,7 +67,7 @@ public class RestApiController {
         return this.scheduleService.GetSchedules();
     }
 
-    @RequestMapping("/testSave")
+    @RequestMapping("/saveSchedules")
     void SaveSchedules()
     {
         List<schedule> mockSchedules = createMockSchedule();
@@ -100,6 +100,8 @@ public class RestApiController {
          * 9 => Sound System
          * */
 
+        System.out.println("Creating mock schedules...");
+
         Date week1 = new Date();
         LocalDateTime dt = week1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         dt = dt.plusWeeks(1);
@@ -108,56 +110,71 @@ public class RestApiController {
         Date week3 = Date.from(dt.atZone(ZoneId.systemDefault()).toInstant());
         dt = dt.plusWeeks(1);
         Date week4 = Date.from(dt.atZone(ZoneId.systemDefault()).toInstant());
+        dt = dt.plusWeeks(1);
+        Date week5 = Date.from(dt.atZone(ZoneId.systemDefault()).toInstant());
 
         List<schedule> mockSchedules = new ArrayList<schedule>();
-        mockSchedules.add(new schedule(1,1,5, week1));
-        mockSchedules.add(new schedule(1,2,10, week1));
-        mockSchedules.add(new schedule(1,2,9, week1));
-        mockSchedules.add(new schedule(1,2,11, week1));
-        mockSchedules.add(new schedule(1,3,6, week1));
+        mockSchedules.add(new schedule(1,1,15, week1));
+        mockSchedules.add(new schedule(1,2,15, week1));
+        mockSchedules.add(new schedule(1,2,15, week1));
+        mockSchedules.add(new schedule(1,2,15, week1));
+        mockSchedules.add(new schedule(1,3,15, week1));
         mockSchedules.add(new schedule(1,4,15, week1));
-        mockSchedules.add(new schedule(1,5,7, week1));
-        mockSchedules.add(new schedule(1,6,13, week1));
-        mockSchedules.add(new schedule(1,7,14, week1));
-        mockSchedules.add(new schedule(1,8,8, week1));
-        mockSchedules.add(new schedule(1,9,12, week1));
+        mockSchedules.add(new schedule(1,5,15, week1));
+        mockSchedules.add(new schedule(1,6,15, week1));
+        mockSchedules.add(new schedule(1,7,15, week1));
+        mockSchedules.add(new schedule(1,8,15, week1));
+        mockSchedules.add(new schedule(1,9,15, week1));
 
-        mockSchedules.add(new schedule(1,1,6, week2));
-        mockSchedules.add(new schedule(1,2,9, week2));
-        mockSchedules.add(new schedule(1,2,10, week2));
-        mockSchedules.add(new schedule(1,2,11, week2));
-        mockSchedules.add(new schedule(1,3,5, week2));
+        mockSchedules.add(new schedule(1,1,15, week2));
+        mockSchedules.add(new schedule(1,2,15, week2));
+        mockSchedules.add(new schedule(1,2,15, week2));
+        mockSchedules.add(new schedule(1,2,15, week2));
+        mockSchedules.add(new schedule(1,3,15, week2));
         mockSchedules.add(new schedule(1,4,15, week2));
-        mockSchedules.add(new schedule(1,5,7, week2));
-        mockSchedules.add(new schedule(1,6,13, week2));
-        mockSchedules.add(new schedule(1,7,14, week2));
-        mockSchedules.add(new schedule(1,8,12, week2));
-        mockSchedules.add(new schedule(1,9,8, week2));
+        mockSchedules.add(new schedule(1,5,15, week2));
+        mockSchedules.add(new schedule(1,6,15, week2));
+        mockSchedules.add(new schedule(1,7,15, week2));
+        mockSchedules.add(new schedule(1,8,15, week2));
+        mockSchedules.add(new schedule(1,9,15, week2));
 
-        mockSchedules.add(new schedule(1,1,5, week3));
-        mockSchedules.add(new schedule(1,2,10, week3));
-        mockSchedules.add(new schedule(1,2,9, week3));
-        mockSchedules.add(new schedule(1,2,11, week3));
-        mockSchedules.add(new schedule(1,3,6, week3));
+        mockSchedules.add(new schedule(1,1,15, week3));
+        mockSchedules.add(new schedule(1,2,15, week3));
+        mockSchedules.add(new schedule(1,2,15, week3));
+        mockSchedules.add(new schedule(1,2,15, week3));
+        mockSchedules.add(new schedule(1,3,15, week3));
         mockSchedules.add(new schedule(1,4,15, week3));
-        mockSchedules.add(new schedule(1,5,7, week3));
-        mockSchedules.add(new schedule(1,6,13, week3));
-        mockSchedules.add(new schedule(1,7,14, week3));
-        mockSchedules.add(new schedule(1,8,8, week3));
-        mockSchedules.add(new schedule(1,9,12, week3));
+        mockSchedules.add(new schedule(1,5,15, week3));
+        mockSchedules.add(new schedule(1,6,15, week3));
+        mockSchedules.add(new schedule(1,7,15, week3));
+        mockSchedules.add(new schedule(1,8,15, week3));
+        mockSchedules.add(new schedule(1,9,15, week3));
 
-        mockSchedules.add(new schedule(1,1,6, week4));
-        mockSchedules.add(new schedule(1,2,9, week4));
-        mockSchedules.add(new schedule(1,2,10, week4));
-        mockSchedules.add(new schedule(1,2,11, week4));
-        mockSchedules.add(new schedule(1,3,5, week4));
+        mockSchedules.add(new schedule(1,1,15, week4));
+        mockSchedules.add(new schedule(1,2,15, week4));
+        mockSchedules.add(new schedule(1,2,15, week4));
+        mockSchedules.add(new schedule(1,2,15, week4));
+        mockSchedules.add(new schedule(1,3,15, week4));
         mockSchedules.add(new schedule(1,4,15, week4));
-        mockSchedules.add(new schedule(1,5,7, week4));
-        mockSchedules.add(new schedule(1,6,13, week4));
-        mockSchedules.add(new schedule(1,7,14, week4));
-        mockSchedules.add(new schedule(1,8,12, week4));
-        mockSchedules.add(new schedule(1,9,8, week4));
+        mockSchedules.add(new schedule(1,5,15, week4));
+        mockSchedules.add(new schedule(1,6,15, week4));
+        mockSchedules.add(new schedule(1,7,15, week4));
+        mockSchedules.add(new schedule(1,8,15, week4));
+        mockSchedules.add(new schedule(1,9,15, week4));
 
+        mockSchedules.add(new schedule(1,1,15, week5));
+        mockSchedules.add(new schedule(1,2,15, week5));
+        mockSchedules.add(new schedule(1,2,15, week5));
+        mockSchedules.add(new schedule(1,2,15, week5));
+        mockSchedules.add(new schedule(1,3,15, week5));
+        mockSchedules.add(new schedule(1,4,15, week5));
+        mockSchedules.add(new schedule(1,5,15, week5));
+        mockSchedules.add(new schedule(1,6,15, week5));
+        mockSchedules.add(new schedule(1,7,15, week5));
+        mockSchedules.add(new schedule(1,8,15, week5));
+        mockSchedules.add(new schedule(1,9,15, week5));
+
+        System.out.println("Mock Schedules created successfully!");
         return mockSchedules;
     }
 }

@@ -6,12 +6,6 @@ import './scheduler.css'
 
 const moment = require("moment")
 
-const SendButton = () => {
-    return (
-        <Button positive floated='right' className = "send-button"> Send To All </Button>
-    )
-}
-
 class Scheduler extends Component {
     constructor(props) {
         super(props)
@@ -20,11 +14,7 @@ class Scheduler extends Component {
     }
     state = {
         listOfRoles: [],
-        listOfPeople: [
-            {key: "1", name : "kevin ismantara", role: "soundman"},
-            {key: "2", name : "steven tjendana", role: "singer"},
-            {key: "3", name : "yonathan", role: "wl"}
-        ],
+        listOfPeople: [],
         years: [],
         months: [],
         selectedYear: null,
@@ -32,7 +22,7 @@ class Scheduler extends Component {
     }
 
     getMinistryTypes() {
-        fetch('http://localhost:8080/ministries', {method: 'GET'}).then(res => res.json()).then(res => this.setState({listOfRoles: res.map(o => o.name)}))
+        fetch('http://localhost:8080/ministries', {method: 'GET'}).then(res => res.json()).then(res => this.setState({listOfRoles: res}))
     }
     getUsers() {
         fetch('http://localhost:8080/users', {
@@ -80,7 +70,10 @@ class Scheduler extends Component {
         let chosenDate = moment().set({
             'year': this.state.selectedYear,
             'month': this.state.selectedMonth,
-            'date': 1
+            'date': 1,
+            'hour': 0,
+            'second': 0,
+            'millisecond': 0
         });
 
         let sundays = [];
@@ -92,7 +85,8 @@ class Scheduler extends Component {
 
             sundays.push({
                 key: i,
-                date: chosenDate.format("MMM D").toString()
+                date: chosenDate.format("MMM D").toString(),
+                timestamp: chosenDate.unix()
             });
 
             chosenDate.add(7, 'd');
@@ -110,12 +104,6 @@ class Scheduler extends Component {
         this.setState({selectedMonth: month});
     }
 
-    /*
-    onClick = () => {
-        //Pass to backend
-    }
-    */
-
     render(){
         let { selectedYear, selectedMonth } = this.state;
         let listOfSundays;
@@ -125,8 +113,12 @@ class Scheduler extends Component {
         return(
             <div>
                 <DatePicker years = {this.state.years} months = {this.state.months} onYearSelect={this.selectYear} onMonthSelect={this.selectMonth}/>
-                <Table listOfSundays = {listOfSundays} listOfPeople = {this.state.listOfPeople} listOfRoles = {this.state.listOfRoles}/>
-                {listOfSundays && <SendButton/>}
+                <Table ref={(cd) => this.child = cd}
+                       listOfSundays = {listOfSundays} 
+                       listOfPeople = {this.state.listOfPeople}
+                       listOfRoles = {this.state.listOfRoles}/>
+                {listOfSundays && <Button positive floated='right' className = "send-button" onClick={this.child.save} > Send To All </Button>}
+                {listOfSundays && <Button positive floated='right' className = "send-button" onClick={this.child.randomize} > Randomize</Button>}
             </div>
         )
     }

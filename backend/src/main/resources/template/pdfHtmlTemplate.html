@@ -1,22 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'/>
+    <!--<link rel='stylesheet' type='text/css' href="   /static/css/pdfHtml.css" th:href="@{/static/css/pdfHtml.css}"/>-->
 
+    <style>
+body {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+}
+
+h1 {
+    color: #245E82;
+    font-size: 30px;
+    font-weight: 700px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    font-size: 16px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+}
+
+th.invisible {
+    border: none;
+    background: none;
+}
+
+td.user {
+    background-color: #A3BECF;
+}
+
+td, th {
+    background-color: #E2EAEF;
+    border: 1px solid #424C52;
+    color: #051722;
+    font-weight: 400;
+    min-width: 100px;
+    overflow: hidden;
+    padding: 5px 10px;
+}
+
+th, tbody tr td:first-child {
+    background-color: #051722;
+    color: #E2EAEF;
+}
+
+thead tr:first-child th:nth-of-type(2) {
+    border-top-left-radius: 6px;
+}
+
+thead tr:first-child th:last-child {
+    border-top-right-radius: 6px;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+tbody.first-column-field tr:first-child td:first-child {
+    border-top-left-radius: 6px;
+}
     </style>
+
 </head>
 <body>
-<table style="width:100%">
+<table>
+    <thead>
     <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Age</th>
+        <th></th>
     </tr>
-    <tr th:each="schedule: ${schedules}">
-        <td><span th:text="${schedule.ministryId}"></span></td>
-        <td><span th:text="${schedule.userId}"></span></td>
-        <td><span th:text="${schedule.date}"></span></td>
-    </tr>
+    </thead>
+    <tbody>
+    <div>
+        <h1>August 2019 Schedule</h1>
+        <table>
+            <thead>
+            <tr>
+                <th class="invisible"></th>
+                <th th:each="date: ${schedule.dates}" th:text="${date}"></th>
+            </tr>
+            </thead>
+            <tbody class="first-column-field">
+            <tr th:each="wls: ${schedule.worshipLeaders}">
+                <td>Worship Leader</td>
+                <td th:each="user: ${wls}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="singers: ${schedule.singers}">
+                <td>Singer</td>
+                <td th:each="user: ${singers}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="keys: ${schedule.keyboardUsers}">
+                <td>Keyboard</td>
+                <td th:each="user: ${keys}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="fills: ${schedule.fillerUsers}">
+                <td>Filler</td>
+                <td th:each="user: ${fills}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="drums: ${schedule.drumUsers}">
+                <td>Drum</td>
+                <td th:each="user: ${drums}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="basses: ${schedule.bassUsers}">
+                <td>Bass</td>
+                <td th:each="user: ${basses}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="guitars: ${schedule.guitarUsers}">
+                <td>Guitar</td>
+                <td th:each="user: ${guitars}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="multis: ${schedule.multimediaUsers}">
+                <td>Multimedia</td>
+                <td th:each="user: ${multis}" th:text="${user.firstName}"></td>
+            </tr>
+            <tr th:each="ss: ${schedule.soundSystemUsers}">
+                <td>Sound System</td>
+                <td th:each="user: ${ss}" th:text="${user.firstName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </tbody>
 </table>
+
+
 </body>
 </html>

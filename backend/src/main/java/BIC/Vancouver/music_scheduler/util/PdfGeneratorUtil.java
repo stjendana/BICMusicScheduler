@@ -98,6 +98,7 @@ public class PdfGeneratorUtil {
     }
 
     public File CreatePdf(Iterable<schedule> schedules) throws Exception {
+        System.out.println("Creating PDF File...");
         Assert.notNull(templateName, "The templateName can not be null");
         Context ctx = new Context();
         ctx.setVariable("schedule", process(schedules));
@@ -114,7 +115,8 @@ public class PdfGeneratorUtil {
             renderer.layout();
             renderer.createPDF(os, false);
             renderer.finishPDF();
-            System.out.println("PDF created successfully");
+            System.out.println("PDF created successfully!");
+            System.out.println(outputFile.getPath());
         }
         finally {
             if (os != null) {

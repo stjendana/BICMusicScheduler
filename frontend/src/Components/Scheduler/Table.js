@@ -2,24 +2,6 @@ import React, { Component } from 'react'
 import { Table as Formatter, Dropdown } from 'semantic-ui-react'
 import './table.css'
 
-const friendOptions = [
-    {
-      key: 'Kevin Ismantara',
-      text: 'Kevin Ismantara',
-      value: 'Kevin Ismantara',
-    },
-    {
-      key: 'Steven Tjendana',
-      text: 'Steven Tjendana 123',
-      value: 'Steven Tjendana',
-    },
-    {
-      key: 'Yonathan',
-      text: 'Yonathan',
-      value: 'Yonathan',
-    }
-]
-
 const DynamicTableHeader = (props) => {
     let { listOfSundays } = props;
     return (
@@ -39,30 +21,40 @@ const DynamicTableHeader = (props) => {
     
 }
 
-const WeekRender = (props) => {
-    let { listOfSundays, listOfRoles, listOfPeople } = props;
+const RowRender = (props) => {
+    let { listOfSundays, listOfRoles, listOfPeople, handleChange, rowIdx } = props;
     let options = listOfPeople.map(o => { return { key: o.key, text: o.name, value: o.key}});
-    let arrayOfDropdown = [];
-    for(let i=0; i < listOfSundays.length; i++) {
-        arrayOfDropdown.push(
+    const onChange = (e, data, columnIdx) => {
+        handleChange(data.value, columnIdx, rowIdx);
+    };
+    return (listOfSundays.map((val, idx) => {
+        return (
             <Formatter.Cell>
                 <Dropdown
                     placeholder='Select Person'
                     fluid
                     selection
                     options={options}
+                    onChange={(e, data) => onChange(e, data, idx) }
                 />
             </Formatter.Cell>
-        );
-    }
+        )
+    }))}
 
+const WeekRender = (props) => {
+    let { listOfSundays, listOfRoles, listOfPeople, handleChange } = props;
     return (
         <Formatter.Body>
-            {listOfRoles.map((roles) => {
+            {listOfRoles.map((roles, idx) => {
                 return(
                     <Formatter.Row>
-                        <Formatter.Cell textAlign='center'> {roles} </Formatter.Cell>
-                        {arrayOfDropdown}
+                        <Formatter.Cell textAlign='center'> {roles.name} </Formatter.Cell>
+                        <RowRender listOfSundays = {listOfSundays}
+                            listOfRoles = {listOfRoles}
+                            listOfPeople = {listOfPeople}
+                            handleChange={handleChange}
+                            rowIdx={idx}
+                        ></RowRender>
                     </Formatter.Row>
                 )
             })}
@@ -72,14 +64,41 @@ const WeekRender = (props) => {
 
 
 class Table extends Component {
-    state = {
-        selectedWL: null,
-        selectedSoundMan: null,
-        selectedSinger: null,
-        selectedKeyboardist: null,
-        selectedFiller: null,
-        selectedMultiMedia: null
+    constructor(props) {
+        super(props)
     }
+    state = {
+        schedules: []
+    }
+
+    handleChange = (userId, columnIdx, rowIdx) => {
+        this.setState({schedules: this.RemoveDuplicate(this.state.schedules, { userId: userId, ministryId: this.props.listOfRoles[rowIdx].id, date: this.props.listOfSundays[columnIdx].timestamp})})
+    }
+
+    RemoveDuplicate = (current, newObj) => {
+        const existing = current.find(o => o.ministryId === newObj.ministryId && o.date === newObj.date);
+        if (existing) {
+            existing.userId = newObj.userId;
+            return current;
+        }
+        return [...current, newObj];
+    }
+
+    save = () => {
+        console.log(this.state.schedules);
+
+        fetch('http://localhost:8080/saveSchedules', {
+                method: 'GET',
+                withCredentials: true,
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('m3-auth-token'),
+                    'Access-Control-Allow-Origin': '*',
+                })                 
+            }).then()
+    }
+
+    randomize = () => {this.handleChange(14, 1,1)}
 
     render(){
         var { listOfRoles, listOfSundays, listOfPeople } = this.props
@@ -94,6 +113,7 @@ class Table extends Component {
                             listOfSundays = {listOfSundays}
                             listOfRoles = {listOfRoles}
                             listOfPeople = {listOfPeople}
+                            handleChange={this.handleChange}
                         />
                     </Formatter>
                 </div>

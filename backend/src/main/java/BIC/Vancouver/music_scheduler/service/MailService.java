@@ -18,6 +18,7 @@ public class MailService {
     JavaMailSender mailSender;
 
     public void sendSimpleMessage(File tempFile) throws MessagingException {
+        System.out.println("Sending email with attachment...");
         mail mailObject = createMailObject();
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -27,15 +28,16 @@ public class MailService {
         helper.setFrom("no-reply@bicvancouver.com");
         helper.addAttachment(tempFile.getName(), tempFile);
         mailSender.send(message);
+        System.out.println("Email sent successfully!");
     }
 
     private mail createMailObject() {
         String[] emailAddresses = new String[]{
-                "steven.tjendana@gmail.com",
-                "melisadewi577@yahoo.co.id",
+                "steven.tjendana@gmail.com"
+                /*"melisadewi577@yahoo.co.id",
                 "ismantara.kevin@yahoo.com",
                 "utomo.agnescarissa@gmail.com",
-                "ijonkyonathan@gmail.com"
+                "ijonkyonathan@gmail.com"*/
         };
 
         mail newMail = new mail();
