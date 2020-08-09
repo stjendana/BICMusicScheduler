@@ -39,6 +39,7 @@ public class PdfGeneratorUtil {
 
         // Process Data
         List<Long> distinctDates = lst.stream().map(schedule::getDate).distinct().collect(Collectors.toList());
+        ms.setMonth(this.formatMonth(distinctDates.get(0)));
         ms.setDates(lst.stream().map(schedule::getDate).map(dt -> formatDate(dt) ).distinct().collect(Collectors.toList()));
         ms.setWorshipLeaders(this.GetTableDataPerRole(lst, distinctDates, 1));
         ms.setSingers(this.GetTableDataPerRole(lst, distinctDates, 2));
@@ -102,6 +103,11 @@ public class PdfGeneratorUtil {
                 .filter(x -> x.getMinistryId() == ministryId)
                 .map(x -> getUser(x.getUserId()))
                 .collect(Collectors.toList());
+    }
+
+    private String formatMonth(Long timeStamp) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy");
+        return formatter.format(new Date(timeStamp));
     }
 
     private String formatDate(Long timeStamp)

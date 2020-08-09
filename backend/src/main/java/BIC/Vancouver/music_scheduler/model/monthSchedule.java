@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class monthSchedule {
+    private String month;
     private List<String> dates;
     private List<List<user>> worshipLeaders;
     private List<List<user>> singers;
@@ -14,6 +15,8 @@ public class monthSchedule {
     private List<List<user>> guitarUsers;
     private List<List<user>> multimediaUsers;
     private List<List<user>> soundSystemUsers;
+
+    public String getMonth() {return month;}
 
     public List<String> getDates() {
         return dates;
@@ -54,6 +57,7 @@ public class monthSchedule {
     public List<List<user>> getSoundSystemUsers() {
         return soundSystemUsers;
     }
+    public void setMonth(String month) {this.month = month;}
 
     public void setDates(List<String> dates) {
         this.dates = dates;
