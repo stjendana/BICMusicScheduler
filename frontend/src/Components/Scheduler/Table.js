@@ -10,7 +10,7 @@ const friendOptions = [
     },
     {
       key: 'Steven Tjendana',
-      text: 'Steven Tjendana',
+      text: 'Steven Tjendana 123',
       value: 'Steven Tjendana',
     },
     {
@@ -40,7 +40,8 @@ const DynamicTableHeader = (props) => {
 }
 
 const WeekRender = (props) => {
-    let { listOfSundays, listOfRoles } = props;
+    let { listOfSundays, listOfRoles, listOfPeople } = props;
+    let options = listOfPeople.map(o => { return { key: o.key, text: o.name, value: o.key}});
     let arrayOfDropdown = [];
     for(let i=0; i < listOfSundays.length; i++) {
         arrayOfDropdown.push(
@@ -49,7 +50,7 @@ const WeekRender = (props) => {
                     placeholder='Select Person'
                     fluid
                     selection
-                    options={friendOptions}
+                    options={options}
                 />
             </Formatter.Cell>
         );
@@ -81,7 +82,7 @@ class Table extends Component {
     }
 
     render(){
-        var { listOfRoles, listOfSundays } = this.props
+        var { listOfRoles, listOfSundays, listOfPeople } = this.props
         if(!listOfSundays){
             return null;
         } else {
@@ -92,6 +93,7 @@ class Table extends Component {
                         <WeekRender
                             listOfSundays = {listOfSundays}
                             listOfRoles = {listOfRoles}
+                            listOfPeople = {listOfPeople}
                         />
                     </Formatter>
                 </div>
