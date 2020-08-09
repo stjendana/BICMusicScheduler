@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class schedule {
 
-    public schedule(Integer id, Integer ministryId, Integer userId, Date date) {
+    public schedule(Integer id, Integer ministryId, Integer userId, Long date) {
         this.id = id;
         this.ministryId = ministryId;
         this.userId = userId;
@@ -24,7 +24,7 @@ public class schedule {
 
     private Integer userId;
 
-    private Date date;
+    private Long date;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id;}
@@ -35,6 +35,6 @@ public class schedule {
     public Integer getUserId(){ return  userId;}
     public void setUserId(Integer userId){this.userId = userId;}
 
-    public Date getDate(){ return date;}
-    public void setDate(Date date){this.date = date;}
+    public Long getDate(){ return date;}
+    public void setDate(Long date){this.date = date;}
 }

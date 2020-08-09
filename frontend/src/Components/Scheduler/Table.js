@@ -66,13 +66,30 @@ const WeekRender = (props) => {
 class Table extends Component {
     constructor(props) {
         super(props)
+        let schedulesPopulated = false;
     }
     state = {
         schedules: []
     }
 
+    AutoPopulateSchedules = () => {
+        console.log('autopopulating...');
+
+        let schedulesForThisMonth = [];
+        this.props.listOfSundays.forEach(dt => {
+            this.props.listOfRoles.forEach(role => {
+                schedulesForThisMonth.push({
+                    userId: -1,
+                    ministryId: role.id,
+                    date: dt.timestamp * 1000
+                });
+            });
+        });
+        this.setState({schedules: schedulesForThisMonth})
+    }
+
     handleChange = (userId, columnIdx, rowIdx) => {
-        this.setState({schedules: this.RemoveDuplicate(this.state.schedules, { userId: userId, ministryId: this.props.listOfRoles[rowIdx].id, date: this.props.listOfSundays[columnIdx].timestamp})})
+        this.setState({schedules: this.RemoveDuplicate(this.state.schedules, { userId: userId, ministryId: this.props.listOfRoles[rowIdx].id, date: this.props.listOfSundays[columnIdx].timestamp * 1000})})
     }
 
     RemoveDuplicate = (current, newObj) => {
@@ -88,7 +105,8 @@ class Table extends Component {
         console.log(this.state.schedules);
 
         fetch('http://localhost:8080/saveSchedules', {
-                method: 'GET',
+                method: 'POST',
+                body: JSON.stringify(this.state.schedules),
                 withCredentials: true,
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -98,13 +116,15 @@ class Table extends Component {
             }).then()
     }
 
-    randomize = () => {this.handleChange(14, 1,1)}
-
     render(){
         var { listOfRoles, listOfSundays, listOfPeople } = this.props
         if(!listOfSundays){
             return null;
-        } else {
+        } else {        
+            if (!this.schedulesPopulated) {
+                this.AutoPopulateSchedules();
+                this.schedulesPopulated = true;
+            }
             return (
                 <div>
                     <Formatter celled singleLine className = "schedule-table">

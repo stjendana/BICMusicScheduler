@@ -85,7 +85,7 @@ class Scheduler extends Component {
 
             sundays.push({
                 key: i,
-                date: chosenDate.format("MMM D").toString(),
+                date: chosenDate.format("MMMM DD YYYY").toString(),
                 timestamp: chosenDate.unix()
             });
 
@@ -107,7 +107,7 @@ class Scheduler extends Component {
     render(){
         let { selectedYear, selectedMonth } = this.state;
         let listOfSundays;
-        if(selectedYear && selectedMonth){
+        if(selectedYear && selectedMonth){            
             listOfSundays = this.getSundaysForSelectedMonthYear(selectedYear, selectedMonth);
         }
         return(
@@ -118,7 +118,6 @@ class Scheduler extends Component {
                        listOfPeople = {this.state.listOfPeople}
                        listOfRoles = {this.state.listOfRoles}/>
                 {listOfSundays && <Button positive floated='right' className = "send-button" onClick={this.child.save} > Send To All </Button>}
-                {listOfSundays && <Button positive floated='right' className = "send-button" onClick={this.child.randomize} > Randomize</Button>}
             </div>
         )
     }

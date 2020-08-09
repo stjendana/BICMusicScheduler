@@ -38,7 +38,7 @@ public class PdfGeneratorUtil {
         schedules.forEach(lst::add);
 
         // Process Data
-        List<Date> distinctDates = lst.stream().map(schedule::getDate).distinct().collect(Collectors.toList());
+        List<Long> distinctDates = lst.stream().map(schedule::getDate).distinct().collect(Collectors.toList());
         ms.setDates(lst.stream().map(schedule::getDate).map(dt -> formatDate(dt) ).distinct().collect(Collectors.toList()));
         ms.setWorshipLeaders(this.GetTableDataPerRole(lst, distinctDates, 1));
         ms.setSingers(this.GetTableDataPerRole(lst, distinctDates, 2));
@@ -53,43 +53,61 @@ public class PdfGeneratorUtil {
         return ms;
     }
 
-    private List<List<user>> GetUsersPerWeek(List<schedule> schedules, List<Date> distinctDates, int ministryId)
+    private List<List<user>> GetUsersPerWeek(List<schedule> schedules, List<Long> distinctDates, int ministryId)
     {
         return distinctDates.stream().map(date -> GetRoleForThisWeek( schedules, date, ministryId)).collect(Collectors.toList());
     }
 
     private List<List<user>> TranslateToTableData(List<List<user>> role)
     {
-        int max = role.stream().mapToInt(List::size).filter(q -> q >= 0).max().orElse(0);
         List<List<user>> processed = new ArrayList<>();
-        for(int i = 0; i<max; i++) {
-            int finalI = i;
-            List<user> x = role.stream().map(a -> a.get(finalI)).collect(Collectors.toList());
-            processed.add(x);
+        try
+        {
+            int max = role.stream().mapToInt(List::size).filter(q -> q >= 0).max().orElse(0);
+            for(int i = 0; i < max; i++) {
+                int finalI = i;
+                List<user> userList = role.stream().map(a -> a.get(finalI)).collect(Collectors.toList());
+                ProcessNullUser(userList);
+                processed.add(userList);
+            }
+        }catch (Exception e)
+        {
+            System.out.println("Error while translating table data:" + e.getMessage());
         }
         return processed;
     }
 
-    private List<List<user>> GetTableDataPerRole(List<schedule> schedules, List<Date> distinctDates, int ministryId)
+    private void ProcessNullUser(List<user> userList) {
+        for(int i = 0; i < userList.size(); i++) {
+            if (userList.get(i) == null) {
+                user nullUser = new user();
+                nullUser.setFirstName("-");
+                nullUser.setLastName("");
+                userList.set(i, nullUser);
+            }
+        }
+    }
+
+    private List<List<user>> GetTableDataPerRole(List<schedule> schedules, List<Long> distinctDates, int ministryId)
     {
         // Get users per week
         List<List<user>> usersPerWeek = GetUsersPerWeek(schedules, distinctDates, ministryId);
         return TranslateToTableData(usersPerWeek);
     }
 
-    private List<user> GetRoleForThisWeek(List<schedule> lst, Date dt, int ministryId)
+    private List<user> GetRoleForThisWeek(List<schedule> lst, Long dt, int ministryId)
     {
         return lst.stream()
-                .filter(x -> x.getDate() == dt)
+                .filter(x -> x.getDate().equals(dt))
                 .filter(x -> x.getMinistryId() == ministryId)
                 .map(x -> getUser(x.getUserId()))
                 .collect(Collectors.toList());
     }
 
-    private String formatDate(Date dt)
+    private String formatDate(Long timeStamp)
     {
         SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd yyyy");
-        return formatter.format(dt);
+        return formatter.format(new Date(timeStamp));
     }
 
     private user getUser(int userId)
