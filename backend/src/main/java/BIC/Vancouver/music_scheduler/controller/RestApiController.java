@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.File;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -48,6 +49,9 @@ public class RestApiController {
     @PutMapping("/user")
     public void UpdateUser(@RequestBody user editUser) { userService.UpdateUser(editUser);}
 
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public user GetLoggedInUser(Principal principal) { return this.userService.FindUserByEmail(principal.getName()); }
 
     @RequestMapping("/ministries")
     public @ResponseBody

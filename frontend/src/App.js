@@ -9,6 +9,10 @@ import { Provider } from 'react-redux'
 import PrivateRoute from './PrivateRoute';
 import createStore from './store'
 import './App.css';
+import {userContext} from './userContext';
+import './assets/styles/base.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap';
 
 const store = createStore()
 export const history = createBrowserHistory()

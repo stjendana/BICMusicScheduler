@@ -30,10 +30,11 @@ class Login extends Component {
         } else {
           return null;
         }
-      }
+      }      
+
       Authenticate(this.state).then(res => {
         if (res) {
-          localStorage.setItem('m3-auth-token', JSON.parse(res).token)
+          localStorage.setItem('m3-auth-token', JSON.parse(res).token)          
           history.push('/home')
         } else {
           this.setState({loginError: true})
