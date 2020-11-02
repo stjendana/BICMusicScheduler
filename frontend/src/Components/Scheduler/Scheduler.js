@@ -5,6 +5,7 @@ import { Button } from 'semantic-ui-react'
 import './scheduler.css'
 import Sidebar from '../SideBar';
 
+
 const moment = require("moment")
 
 class Scheduler extends Component {
@@ -112,8 +113,9 @@ class Scheduler extends Component {
             listOfSundays = this.getSundaysForSelectedMonthYear(selectedYear, selectedMonth);
         }
         return(
-            <div>                
-                <DatePicker years = {this.state.years} months = {this.state.months} onYearSelect={this.selectYear} onMonthSelect={this.selectMonth}/>
+            <div class="scheduler-wrapper">       
+                <Sidebar></Sidebar>         
+                <DatePicker years = {this.state.years} months = {this.state.months} onYearSelect={this.selectYear} onMonthSelect={this.selectMonth} />
                 <Table ref={(cd) => this.child = cd}
                        listOfSundays = {listOfSundays} 
                        listOfPeople = {this.state.listOfPeople}

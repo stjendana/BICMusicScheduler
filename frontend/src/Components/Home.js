@@ -45,9 +45,6 @@ class Home extends Component {
         return(            
             <div>
                 <Sidebar></Sidebar>
-                <Button color='blue' fluid onClick={this.onClick}> Schedule </Button>
-                <Button color='blue' fluid> Manage </Button>
-                <Button color='blue' fluid onClick={this.signOut}> Sign out </Button>
             </div>
         )
     }

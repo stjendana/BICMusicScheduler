@@ -126,7 +126,7 @@ class Table extends Component {
                 this.schedulesPopulated = true;
             }
             return (
-                <div>
+                <div class="table-wrapper">
                     <Formatter celled singleLine className = "schedule-table">
                         <DynamicTableHeader listOfSundays = {listOfSundays} />
                         <WeekRender

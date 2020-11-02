@@ -15,7 +15,7 @@ class DatePicker extends Component {
     render(){
         let { years, months } = this.props;
         return(
-            <div>
+            <div class="datepicker-wrapper">
                 <Dropdown className = "year-picker"
                     placeholder="Select Year" 
                     onChange={this.onChangeYear}
