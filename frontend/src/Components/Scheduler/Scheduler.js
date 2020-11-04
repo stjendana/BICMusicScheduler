@@ -4,7 +4,7 @@ import Table from './Table'
 import { Button } from 'semantic-ui-react'
 import './scheduler.css'
 import Sidebar from '../SideBar';
-
+const {REACT_APP_BE_URL} = process.env;
 
 const moment = require("moment")
 
@@ -24,10 +24,10 @@ class Scheduler extends Component {
     }
 
     getMinistryTypes() {
-        fetch('http://localhost:8080/ministries', {method: 'GET'}).then(res => res.json()).then(res => this.setState({listOfRoles: res}))
+        fetch(`${ REACT_APP_BE_URL }/ministries`, {method: 'GET'}).then(res => res.json()).then(res => this.setState({listOfRoles: res}))
     }
     getUsers() {
-        fetch('http://localhost:8080/users', {
+        fetch(`${ REACT_APP_BE_URL }/users`, {
                 method: 'GET',
                 withCredentials: true,
                 headers: new Headers({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table as Formatter, Dropdown } from 'semantic-ui-react'
 import './table.css'
+const {REACT_APP_BE_URL} = process.env;
 
 const DynamicTableHeader = (props) => {
     let { listOfSundays } = props;
@@ -104,7 +105,7 @@ class Table extends Component {
     save = () => {
         console.log(this.state.schedules);
 
-        fetch('http://localhost:8080/saveSchedules', {
+        fetch(`${ REACT_APP_BE_URL }/saveSchedules`, {
                 method: 'POST',
                 body: JSON.stringify(this.state.schedules),
                 withCredentials: true,
