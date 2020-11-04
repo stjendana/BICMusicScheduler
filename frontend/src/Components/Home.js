@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
 import { history } from '../App'
 import Sidebar from '../Components/SideBar';
+const {REACT_APP_BE_URL} = process.env;
 
 class Home extends Component {
     state = {
@@ -16,7 +17,7 @@ class Home extends Component {
     }
 
     async GetLoggedInUser() {
-        let response = await fetch('http://localhost:8080/username', {
+        let response = await fetch(`${ REACT_APP_BE_URL }/username`, {
             method: 'GET',              
             withCredentials: true,
             headers: new Headers({

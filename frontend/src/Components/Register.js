@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Segment, Grid, Header } from 'semantic-ui-react';
 import { history } from '../App'
 import "semantic-ui-css/semantic.min.css";
+const {REACT_APP_BE_URL} = process.env;
 
 class Register extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Register extends Component {
         };        
 
         async function Call() {
-          let response = await fetch('http://localhost:8080/ministries', {method: 'GET'})
+          let response = await fetch(`${ REACT_APP_BE_URL }/ministries`, {method: 'GET'})
           let responseOk = response && response.ok;
           if (responseOk) {
             let data = await response.text();
@@ -74,7 +75,7 @@ class Register extends Component {
     }
 
     Submit = () => {
-        fetch('http://localhost:8080/register', {
+        fetch(`${ REACT_APP_BE_URL }/register`, {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {

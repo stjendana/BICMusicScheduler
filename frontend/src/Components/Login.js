@@ -3,6 +3,7 @@ import { Button, Form, Segment, Grid, Header } from 'semantic-ui-react';
 import { history } from '../App'
 import "semantic-ui-css/semantic.min.css";
 import { Message } from 'semantic-ui-react'
+const {REACT_APP_BE_URL} = process.env;
 
 class Login extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Login extends Component {
 
     AuthenticateUser = (event) => {
       async function Authenticate(state) {
-        let response = await fetch('http://localhost:8080/authenticate', {
+        let response = await fetch(`${ REACT_APP_BE_URL }/authenticate`, {
             method: 'POST',
             body: JSON.stringify(state),
             headers: {
